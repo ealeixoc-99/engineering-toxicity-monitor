@@ -1,5 +1,4 @@
 import React from "react";
-import logo from './florian.jpg';
 import './App.css';
 
 function App() {
@@ -28,14 +27,43 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <br />
-        <br />
         <form onSubmit={submitSentence}>
           <label>Write a sentence :<textarea value={sentence} onChange={onChange} /></label>
           <input type="submit" value="Send" />
         </form>
-        <h1 className="App-title">{loading === true ? (<p>Loading</p>) : (response)}</h1>
+        <h1 className="App-title">{loading === true ? (<p>Loading</p>) : ( 
+          <table>
+            <thead>
+              <tr><th>Statistics</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Identity Attack</td>
+                <td>{response?.identity_attack[0]}</td>
+              </tr>
+              <tr>
+                <td>Insult</td>
+                <td>{response?.insult[0]}</td>
+              </tr>
+              <tr>
+                <td>Obscene</td>
+                <td>{response?.obscene[0]}</td>
+              </tr>
+              <tr>
+                <td>Severe Toxicity</td>
+                <td>{response?.severe_toxicity[0]}</td>
+              </tr>
+              <tr>
+                <td>Threat</td>
+                <td>{response?.threat[0]}</td>
+              </tr>
+              <tr>
+                <td>Toxicity</td>
+                <td>{response?.toxicity[0]}</td>
+              </tr>
+            </tbody>
+          </table>)}
+          </h1>
       </header>
     </div>
   );
