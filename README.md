@@ -6,7 +6,9 @@ Final Project of Data Engineering Courses
 - [***Florian Marques***](https://github.com/MarquesFlorian)
 
 ## Run the Project
-Pending
+- To launch the project manually without docker and jenkins : 
+  - Launch the back into the backend directory (port 5000) : `flask run`
+  - Launch the front into the frontend directory (port 3000) : `npm run start`
 
 ## About the Project
 - The end of the project is the 28 February
@@ -15,21 +17,20 @@ Pending
 - We will have to create branches for each feature and branches for each version.
 - Use the CD version control branching system : master, develop, feature-..., release-...
 - Technos used :
-  - .
-  - .
+  - Front : React
+  - Back : Python and Flask
 
 ## The Web Application
 - It contains a form input and a submit button
-- The User can write an english sentence into the form input and when he click on the submit button, the sentence will be send to the Back which will inspect it with a model to determine if the sentence contains Toxicity or not. Then, the back will return statistics of the sentence to the Web Application which gonna print the statistics.
+- The User can write an english sentence into the form input and when he click on the submit button, the sentence will be send to the Back which will inspect it with a model to determine if the sentence contains Toxicity or not. Then, the back will return statistics of the sentence to the Web Application which gonna print the statistics into a table.
 
 ## The Back-end
 - Receive front-end informations to analyze a sentence with the model
 - Send statistics given by the model to the Front-end
 
 ## The Model 
-This [model](https://huggingface.co/unitary/toxic-bert) analyze a sentence to determine the toxicity which it contains.
-
-
+This [model](https://huggingface.co/unitary/toxic-bert) analyze a sentence to determine the toxicity which it contains. 
+It return different types of category to get statistics on the sentence.
 
 ## Tests
 We need to try each part of our application and each features, so they're differents type of tests :
@@ -37,6 +38,14 @@ We need to try each part of our application and each features, so they're differ
 - Integration Tests : Send a request from the front to the back
 - End-to-end Tests : Try the entire feature of our application (the main feature)
 - Stress Tests : Tests 100 request per minutes
+
+To launch the tests :
+- On the back-end :
+  - Go into the backend directory
+  - And run this command : `python -m pytest .`
+- On the front-end :
+  - Go into the frontend directory
+  - And run this command : `npm test`
 
 ## Deployments
 The application need to be easily deploy, so we're gonna use Docker with docker-compose
