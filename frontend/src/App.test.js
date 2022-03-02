@@ -2,12 +2,15 @@ import { act, render, fireEvent, cleanup } from '@testing-library/react';
 import ReactTestUtils from 'react-dom/test-utils'
 import App from './App';
 import axios from "axios";
+import puppeteer from 'puppeteer'
+import { perf } from 'react-performance-testing/native';
+import React from 'react'
 
 afterEach(async()=>{
   await cleanup();
 });
 
-test('Test to submit a form and get result', async () => {
+test('Test to submit a form and get result - Integration Test + End To End Test', async () => {
   const { getByTestId  } = render(<App />);
   
   await act(async () => {
@@ -23,12 +26,12 @@ test('Test to submit a form and get result', async () => {
   expect(toxicity).toBeGreaterThan(0.8);
 }, 20000);
 
-test('Test status code of Back', async () => {
+test('Test status code of Back - Communication Test', async () => {
   const res = axios.get("http://localhost:5000/index?sentence=I_hate_you");
   expect((await res).status).toBe(200);
 });
 
-test('Test communication between Front and Back to get data', async () => {
+test('Test communication between Front and Back to get data - Communication test + Unit Test', async () => {
   const res = axios.get("http://localhost:5000/index?sentence=I_hate_you");
 
   var data = (await res).data.message;
@@ -37,13 +40,13 @@ test('Test communication between Front and Back to get data', async () => {
   expect(toxicity).toBeGreaterThan(0.8);
 });
 
-test('Test to check the page at the beginning', async () => {
+test('Test to check the page at the beginning - Unit Test', async () => {
   const { getByTestId } = render(<App />); 
 
-  expect(getByTestId('test-toxicity')).toHaveTextContent('')
+  expect(getByTestId('textAreaLabel')).toBeInTheDocument();
 });
 
-test('Test to check if the form submit', async () => {
+test('Test to check if the form submit - Unit Test', async () => {
   const { getByTestId, getByText  } = render(<App />);
   
   fireEvent.submit(getByTestId('form-test'));
