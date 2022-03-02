@@ -27,8 +27,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <form onSubmit={submitSentence}>
-          <label>Write a sentence :<textarea value={sentence} onChange={onChange} /></label>
+        <form data-testid="form-test" onSubmit={submitSentence}>
+          <label>Write a sentence :<textarea data-testid="text-area-test" type='text' value={sentence} onChange={onChange} /></label>
           <input type="submit" value="Send" />
         </form>
         <h1 className="App-title">{loading === true ? (<p>Loading</p>) : ( 
@@ -59,7 +59,7 @@ function App() {
               </tr>
               <tr>
                 <td>Toxicity</td>
-                <td>{response?.toxicity[0]}</td>
+                <td data-testid="test-toxicity">{response?.toxicity[0]}</td>
               </tr>
             </tbody>
           </table>)}
