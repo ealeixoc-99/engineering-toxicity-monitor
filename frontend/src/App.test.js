@@ -2,8 +2,6 @@ import { act, render, fireEvent, cleanup } from '@testing-library/react';
 import ReactTestUtils from 'react-dom/test-utils'
 import App from './App';
 import axios from "axios";
-import puppeteer from 'puppeteer'
-import { perf } from 'react-performance-testing/native';
 import React from 'react'
 
 afterEach(async()=>{
@@ -19,12 +17,12 @@ test('Test to submit a form and get result - Integration Test + End To End Test'
     await ReactTestUtils.Simulate.change(node);
 
     fireEvent.submit(getByTestId('form-test'));
-    await new Promise((r) => setTimeout(r, 10000));
+    await new Promise((r) => setTimeout(r, 2000));
   });
 
   var toxicity = parseFloat(getByTestId('test-toxicity').textContent);
   expect(toxicity).toBeGreaterThan(0.8);
-}, 20000);
+});
 
 test('Test status code of Back - Communication Test', async () => {
   const res = axios.get("http://localhost:5000/index?sentence=I_hate_you");
