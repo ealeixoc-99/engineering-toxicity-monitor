@@ -1,6 +1,4 @@
-from detoxify import Detoxify
-
-def sentence_toxicity_analysis(answerToPredict):
+def sentence_toxicity_analysis(model, answerToPredict):
     """ This function will prepare the sentence and then apply the detoxify model to determine the toxicity
     of sentence.
 
@@ -9,6 +7,6 @@ def sentence_toxicity_analysis(answerToPredict):
     return String : the prediction
     """
 
-    results = Detoxify('original').predict([answerToPredict])
+    results = model.predict([answerToPredict])
 
     return results
