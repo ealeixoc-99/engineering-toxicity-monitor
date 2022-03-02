@@ -2,6 +2,9 @@ import { act, render, fireEvent, cleanup } from '@testing-library/react';
 import ReactTestUtils from 'react-dom/test-utils'
 import App from './App';
 import axios from "axios";
+import puppeteer from 'puppeteer'
+import { perf } from 'react-performance-testing/native';
+import React from 'react'
 
 afterEach(async()=>{
   await cleanup();
