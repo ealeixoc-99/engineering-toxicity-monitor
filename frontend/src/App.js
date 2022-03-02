@@ -28,7 +28,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <form data-testid="form-test" onSubmit={submitSentence}>
-          <label>Write a sentence :<textarea data-testid="text-area-test" type='text' value={sentence} onChange={onChange} /></label>
+          <label data-testid="textAreaLabel">Write a sentence :<textarea data-testid="text-area-test" type='text' value={sentence} onChange={onChange} /></label>
           <input type="submit" value="Send" />
         </form>
         <h1 className="App-title">{loading === true ? (<p>Loading</p>) : response === null ? <p></p> : ( 
