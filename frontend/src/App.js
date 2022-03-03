@@ -9,7 +9,7 @@ function App() {
   function submitSentence(evt){
     setLoading(true);
     evt.preventDefault();
-    fetch('/index?sentence='+sentence , {
+    fetch('http://be:5000/index?sentence='+sentence , {
       method: "GET",
       headers: {
         'Content-type': 'application/json'
