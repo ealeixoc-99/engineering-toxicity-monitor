@@ -7,8 +7,10 @@ Final Project of Data Engineering Courses
 
 ## Run the Project
 - To launch the project manually without docker and jenkins : 
-  - Launch the back into the backend directory (port 5000) : `flask run`
-  - Launch the front into the frontend directory (port 3000) : `npm run start`
+  - Launch the back into the backend directory (port 5000) : `pip install -r requirements.txt && flask run`
+  - Launch the front into the frontend directory (port 3000) : `npm install && npm run start`
+- To launch the project with docker, launch the following command : `docker-compose up -d --build`
+- It will easier for the tests in local if you add 'be' into your host file, 127.0.0.1 = be because or backend application is called be on docker
 
 ## About the Project
 - The end of the project is the 28 February
