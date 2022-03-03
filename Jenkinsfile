@@ -10,6 +10,7 @@ pipeline {
         stage('Test the develop branch') {
             steps {
                 bat 'cd frontend && npm install && npm test -- --bail --ci'
+                bat 'cd backend && conda activate base && pip install -r requirements.txt && python -m pytest .'
             }
         }
         stage('Merge develop branch into a release branch') {

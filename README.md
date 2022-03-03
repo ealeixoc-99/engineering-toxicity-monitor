@@ -17,10 +17,13 @@ Final Project of Data Engineering Courses
 - The project report is a docker image stock on the free docker hub and a readme to explain how the project works
 - Use a [Trello](https://trello.com/b/RYurjzNj/tablefeaturerepartition)
 - We will have to create branches for each feature and branches for each version.
-- Use the CD version control branching system : master, develop, feature-..., release-...
+- Use the CD version control branching system : master, develop, feature/..., release/...
 - Technos used :
   - Front : React
   - Back : Python and Flask
+  - Deployment : Docker
+  - Automate : Jenkins and ngrok to use a webhook
+  - Monitoring : Prometheus and Grafana
 
 ## The Web Application
 - It contains a form input and a submit button
@@ -54,10 +57,15 @@ The application need to be easily deploy, so we're gonna use Docker with docker-
 
 ## Automate the application
 We need to automatize the application on differents steps with Jenkins :
-- Build : build and run unit tests on feature branches
-- Test : run other tests and push to release on the develop branch
-- Deployment : wait user for acceptance on the release branch before pushing to master
-- Release : deploy on merging with master
+- Build and Test : Deploy the develop branch and run tests on it
+- Merge the develop branch into the release/jenkins branch
+- Merge the release/jenkins branch on the master branch
+- Then, deploy the master branch
+
+How it works ?
+- Launch ngrok on the jenkins port with this command : `ngrok http 8080`
+- On your github project, create a webhook with the https ngrok address and add the following string : '/github-webhook/' and desactive the ssh
+- When you push something on the develop branch (or merge) the pipeline will be triggered (think to launch docker before that)
 
 ## Monitoring (Prometheus)
 The application need to be monitored after the deployment to determine easily and quickly if issue appears, and to resolve it.
