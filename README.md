@@ -47,7 +47,7 @@ To launch the tests :
   - And run this command : `python -m pytest .`
 - On the front-end :
   - Go into the frontend directory
-  - And run this command : `npm test`
+  - And run this command : `npm test -- --bail --ci`
 
 ## Deployments
 The application need to be easily deploy, so we're gonna use Docker with docker-compose
