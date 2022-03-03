@@ -2,10 +2,12 @@ pipeline {
     agent any
 
     stages {
-        stage('Deploy and test the develop branch') {
+        stage('Deploy the develop branch') {
             steps {
                 bat 'docker-compose up -d --build'
             }
+        }
+        stage('Test the develop branch') {
             steps {
                 bat 'cd frontend && npm install && npm test -- --bail --ci'
             }
