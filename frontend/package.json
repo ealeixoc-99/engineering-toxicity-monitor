@@ -36,7 +36,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000",
+  "proxy": "http://be:5000",
   "devDependencies": {
     "react-performance-testing": "^2.0.0"
   }
