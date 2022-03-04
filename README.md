@@ -42,7 +42,7 @@ We need to try each part of our application and each features, so they're differ
 - Unit Tests : Test each features
 - Integration Tests : Send a request from the front to the back
 - End-to-end Tests : Try the entire feature of our application (the main feature)
-- Stress Tests : Tests 100 request per minutes
+- Stress Tests : Tests 100 request per minutes (on the backend)
 
 To launch the tests :
 - On the back-end :
