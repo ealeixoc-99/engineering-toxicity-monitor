@@ -7,9 +7,15 @@ pipeline {
                 bat 'docker-compose up -d --build'
             }
         }
-        stage('Test the develop branch') {
+        stage('Test the frontend develop branch') {
             steps {
                 bat 'cd frontend && npm install && npm test -- --bail --ci'
+            }
+        }
+        stage('Test the backend develop branch') {
+            steps {
+                bat 'conda init cmd.exe'
+                bat 'cd backend && activate base && pip install -r requirements.txt && python -m pytest .'
             }
         }
         stage('Merge develop branch into a release branch') {
