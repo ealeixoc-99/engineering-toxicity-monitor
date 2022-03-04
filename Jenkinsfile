@@ -14,7 +14,8 @@ pipeline {
         }
         stage('Test the backend develop branch') {
             steps {
-                bat 'cd backend && CALL conda activate base && pip install -r requirements.txt && python -m pytest .'
+                bat 'conda init cmd.exe'
+                bat 'cd backend && activate base && pip install -r requirements.txt && python -m pytest .'
             }
         }
         stage('Merge develop branch into a release branch') {
