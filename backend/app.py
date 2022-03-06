@@ -18,7 +18,7 @@ LATENCY = Histogram('Latency', 'Time spent processing request', buckets=[0.0001,
 
 SYSTEM.labels('CPU').set(psutil.cpu_percent())
 SYSTEM.labels('Memory').set(psutil.virtual_memory()[2])
-SYSTEM.labels('Disk Usage').set(psutil.disk_usage("C:/")[2])
+SYSTEM.labels('Disk Usage').set(psutil.disk_usage(psutil.disk_partitions()[0].mountpoint)[2])
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -36,7 +36,7 @@ def hello():
     LATENCY.observe(time.time() - start)
     SYSTEM.labels('CPU').set(psutil.cpu_percent())
     SYSTEM.labels('Memory').set(psutil.virtual_memory()[2])
-    SYSTEM.labels('Disk Usage').set(psutil.disk_usage("C:/")[2])
+    SYSTEM.labels('Disk Usage').set(psutil.disk_usage(psutil.disk_partitions()[0].mountpoint)[2])
     # Response for the back
     sentenceToAnalyze = request.args.get('sentence')
     analyze = toxicity.sentence_toxicity_analysis(model, sentenceToAnalyze)
