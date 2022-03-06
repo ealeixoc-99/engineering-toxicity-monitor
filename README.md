@@ -7,10 +7,21 @@ Final Project of Data Engineering Courses
 
 ## Run the Project
 - To launch the project manually without docker and jenkins : 
-  - Launch the back into the backend directory (port 5000) : `pip install -r requirements.txt && flask run`
+  - Launch the back into the backend directory (port 5000) : `pip install -r requirements.txt && python app.py`
   - Launch the front into the frontend directory (port 3000) : `npm install && npm run start`
 - To launch the project with docker, launch the following command : `docker-compose up -d --build`
 - It will easier for the tests in local if you add 'be' into your host file, 127.0.0.1 = be because or backend application is called be on docker
+- To launch the monitoring part, follow the next steps :
+  - Copy the prometheus.yml file and the rules.yml file and paste it in your prometheus directory
+  - Launch prometheus app
+  - Adapt the alertmanager.yml file with your credentials and copy/paste this file in your altermanager directory
+  - Launch the alertmanager directory
+  - To check the metrics, go on the following link : http://localhost:8010/metrics
+  - To update the metrics, you can do an action on the frontend website (submit a sentence)
+  - Then, you can go on http://localhost:9090 to get the prometheus app
+  - To check the alertmanager app, go on http://localhost:9093
+  - To launch grafana, write this following command : `docker run -d -p 3050:3050 --name=grafana -e "GF_SERVER_HTTP_PORT=3050" grafana/grafana-enterprise`
+  - Then you can check your grafana app : http://localhost:3050 and configure your dashboard
 
 ## About the Project
 - The end of the project is the 28 February
