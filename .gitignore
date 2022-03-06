@@ -3,5 +3,5 @@
 # dependencies
 .vscode/
 .idea/
-frontend/package-lock.json
+/frontend/package-lock.json
 TP project 2.docx
