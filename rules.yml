@@ -1,6 +1,10 @@
 groups:
   - name: example
     rules:
-      - alert: InstanceDown
+      - alert: CheckMemory
+        expr: system_usage{resource_type="Memory"} > 88
+      - alert: CheckCpuUsage
+        expr: system_usage{resource_type="CPU"} > 80
+      - alert: Server up
         expr: up ==0
         for: 1m

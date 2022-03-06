@@ -8,18 +8,17 @@ from prometheus_client import Gauge
 from prometheus_client import Summary
 from prometheus_client import Histogram
 import time
+import psutil
 
-REQUEST_TIME = Summary('request_processing_seconds', 'Time spent processing request')
-REQUESTS = Counter('hello_worlds_total', 'Hello Worlds requested')
-EXCEPTIONS = Counter('hello_world_exceptions_total', 'Exceptions serving Hello World.')
-INPROGRESS = Gauge('hello_worlds_inprogress', 'Number of Hello Worlds in progress.')
-LAST = Gauge('hello_world_last_time_seconds', 'The last time a Hello World was served.')
-LATENCY = Histogram('Latency', 'Time for a request Hello World.', buckets=[0.0001, 0.0002, 0.0005, 0.001, 0.01, 0.1])
+UPDATE_PERIOD = 300
 
-# Decorate function with metric.
-@REQUEST_TIME.time()
-def process_request(t):
-    time.sleep(t)
+REQUESTS = Counter('total_request', 'User requests count')
+SYSTEM = Gauge('system_usage', 'Hold current system resource usage',['resource_type'])
+LATENCY = Histogram('Latency', 'Time spent processing request', buckets=[0.0001, 0.0002, 0.0005, 0.001, 0.01, 0.1])# Hardware metrics
+
+SYSTEM.labels('CPU').set(psutil.cpu_percent())
+SYSTEM.labels('Memory').set(psutil.virtual_memory()[2])
+SYSTEM.labels('Disk Usage').set(psutil.disk_usage("C:/")[2])
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -30,11 +29,15 @@ model = Detoxify('original')
 @cross_origin()
 def hello():
     start = time.time()
+    # Software metrics
+    # User request count
     REQUESTS.inc()
-    INPROGRESS.inc()
-    LAST.set(time.time())
-    INPROGRESS.dec()
+    # Request time metric
     LATENCY.observe(time.time() - start)
+    SYSTEM.labels('CPU').set(psutil.cpu_percent())
+    SYSTEM.labels('Memory').set(psutil.virtual_memory()[2])
+    SYSTEM.labels('Disk Usage').set(psutil.disk_usage("C:/")[2])
+    # Response for the back
     sentenceToAnalyze = request.args.get('sentence')
     analyze = toxicity.sentence_toxicity_analysis(model, sentenceToAnalyze)
     return jsonify(message=analyze)
@@ -43,8 +46,3 @@ if __name__ == '__main__':
     # Start up the server to expose the metrics.
     start_http_server(8010)
     app.run(host='0.0.0.0', port=5000)
-    # Generate some requests.
-    while True:
-        process_request(1)
-
-
